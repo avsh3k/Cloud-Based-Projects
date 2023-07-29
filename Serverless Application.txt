@@ -1,0 +1,54 @@
+Assumptions:
+
+You have an AWS account set up.
+You have the AWS CLI installed and configured with appropriate credentials.
+Let's create a basic serverless function that will respond with a "Hello, World!" message.
+
+Step 1: Set Up the Project
+Create a new directory for your project and navigate into it:
+mkdir serverless-app
+cd serverless-app
+Step 2: Initialize the Project and Install Dependencies
+Run the following commands to set up your Node.js project and install the AWS SDK, which we'll use to interact with AWS services:
+
+npm init -y
+npm install aws-sdk
+Step 3: Create the Serverless Function
+Create a new file named handler.js in your project directory:
+
+Program:
+// handler.js
+exports.handler = async (event, context) => {
+  // Your logic here
+  const message = "Hello, World!";
+  
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify({ message }),
+  };
+  
+  return response;
+};
+
+Step 4: Deploy the Function to AWS Lambda
+To deploy the function to AWS Lambda, you can use the AWS CLI. Ensure you have the AWS CLI installed and configured with the appropriate credentials.
+
+Run the following command to package and deploy the function:
+
+
+aws lambda create-function --function-name myServerlessFunction \
+  --runtime nodejs14.x \
+  --handler handler.handler \
+  --role <YOUR_IAM_ROLE_ARN> \
+  --zip-file fileb://./handler.js
+
+
+Replace <YOUR_IAM_ROLE_ARN> with the ARN of an IAM role that has the necessary permissions to execute Lambda functions.
+
+Step 5: Test the Serverless Function
+After successful deployment, you can test the function using the AWS Lambda console or the AWS CLI:
+
+bash :aws lambda invoke --function-name myServerlessFunction --payload '{}' output.txt
+This will invoke the function and store the response in the output.txt file.
+
+That's it! You have created a simple serverless application using JavaScript and deployed it to AWS Lambda. Serverless applications are highly scalable and cost-efficient since you pay only for the actual usage. You can extend this example to perform more complex tasks and interact with other AWS services as needed.
